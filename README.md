@@ -11,6 +11,18 @@ Please run the following:
 ```
 pip install -r requirements.txt
 ```
+
+Make migrations
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Create superuser
+```
+python manage.py createsuperuser
+```
+
 ## Execution of program
 
 ```python main.py```
