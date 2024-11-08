@@ -25,4 +25,4 @@ python manage.py createsuperuser
 
 ## Execution of program
 
-```python main.py```
+```python manage.py runserver```

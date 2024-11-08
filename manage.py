@@ -1,3 +1,9 @@
+"""
+miniproject4AbhisekShrestha
+INF601 - Advanced Programming in Python
+Abhisek Shrestha
+"""
+
 #!/usr/bin/env python
 import os
 import sys
