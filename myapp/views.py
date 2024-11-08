@@ -1,28 +1,32 @@
-from django.shortcuts import render
-from .forms import SampleForm
+# views.py
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from .forms import ExampleForm, UserRegisterForm
 
 def home(request):
     return render(request, 'home.html')
 
-def page1(request):
-    return render(request, 'page1.html')
-
-def page2(request):
-    return render(request, 'page2.html')
-
-def page3(request):
-    return render(request, 'page3.html')
-
-def page4(request):
-    return render(request, 'page4.html')
-
-def page5(request):
+def register(request):
     if request.method == 'POST':
-        form = SampleForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            # Process the data from the form here
-            print(form.cleaned_data)
-            return render(request, 'page5.html', {'form': form, 'message': "Form submitted successfully!"})
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('home')
     else:
-        form = SampleForm()
-    return render(request, 'page5.html', {'form': form})
+        form = UserRegisterForm()
+    return render(request, 'register.html', {'form': form})
+
+def example_view(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = ExampleForm()
+    return render(request, 'example_form.html', {'form': form})

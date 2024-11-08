@@ -1,4 +1,6 @@
-from django.contrib import admin
-from .models import SampleModel
+# admin.py
 
-admin.site.register(SampleModel)
+from django.contrib import admin
+from .models import ExampleModel
+
+admin.site.register(ExampleModel)

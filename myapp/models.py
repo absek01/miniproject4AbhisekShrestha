@@ -1,8 +1,12 @@
-from django.db import models
+# models.py
 
-class SampleModel(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
+from django.db import models
+from django.contrib.auth.models import User
+
+class ExampleModel(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.title

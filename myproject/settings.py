@@ -1,14 +1,12 @@
+# settings.py
+
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Define BASE_DIR to point to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-DEBUG = True
-ALLOWED_HOSTS = []
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -19,23 +17,11 @@ INSTALLED_APPS = [
     'myapp',
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'myproject.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'myapp' / 'templates'],
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # This is optional if you're using custom templates
+        'APP_DIRS': True,  # This allows loading templates from your apps
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -47,41 +33,34 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'myproject.wsgi.application'
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Required for admin
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Required for admin
+    'django.contrib.messages.middleware.MessageMiddleware',  # Required for admin
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
-# Database
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # For SQLite database
+        'NAME': BASE_DIR / 'db.sqlite3',  # Path to the SQLite database file
     }
 }
 
-# Password validation
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
 
-# Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = '/'  # Redirects users after login
+LOGOUT_REDIRECT_URL = '/'  # Redirects users after logout
 
-# Static files (CSS, JavaScript, images)
-STATIC_URL = 'static/'
+ALLOWED_HOSTS = ['*']
 
-# Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ROOT_URLCONF = 'myproject.urls'
+
+SECRET_KEY = 'z3R7F5zA3bML9uixL0aKYUecy8QW4RLDJh2gtsZt73FhD75XaG'
